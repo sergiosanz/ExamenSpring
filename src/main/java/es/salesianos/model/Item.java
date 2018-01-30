@@ -2,26 +2,27 @@ package es.salesianos.model;
 
 public class Item {
 	
-	private String Nombre;
-	private int Peso;
-	private String TipoEscritura;
+	private String name;
+	private String peso;
+	private String type;
 	
-	public String getNombre() {
-		return Nombre;
+	public String getName() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public int getPeso() {
-		return Peso;
+	public String getPeso() {
+		return peso;
 	}
-	public void setPeso(int peso) {
-		Peso = peso;
+	public void setPeso(String peso) {
+		this.peso = peso;
 	}
-	public String getTipoEscritura() {
-		return TipoEscritura;
+	public String getType() {
+		return type;
 	}
-	public void setTipoEscritura(String tipoEscritura) {
-		TipoEscritura = tipoEscritura;
+	public void setType(String type) {
+		this.type = type;
 	}
+
 }

@@ -1,16 +1,10 @@
 package es.salesianos.model;
 
-import java.util.List;
+public interface Mochila {
 
-public class Mochila {
-	
-	public List<Item> items;
+	public boolean isFull();
 
-	public List<Item> getItems() {
-		return items;
-	}
+	public void addItem(Item item);
 
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+	public int spaceAvalaible();
 }

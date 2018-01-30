@@ -1,48 +1,73 @@
 package es.salesianos.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.salesianos.model.Item;
 import es.salesianos.model.Persona;
+import es.salesianos.model.Arma;
 
 @Controller
 public class PersonaController {
 
-	private Persona persona;
+	private static Logger log = LogManager.getLogger(PersonaController.class);
+
+	private Persona person;
 
 	@GetMapping("/")
 	public ModelAndView index() {
-		persona = new Persona();
-		ModelAndView modelAndView = new ModelAndView("index", "command", persona);
-		modelAndView.addObject("persona", this.persona);
+		person = new Persona();
+		person.setItem(new Item());
+		ModelAndView modelAndView = new ModelAndView("index", "command", person);
+		modelAndView.addObject("person", this.person);
 		return modelAndView;
 	}
 
-	@PostMapping("personaInsert")
-	public ModelAndView personaInsert(Persona persona) {
-		ModelAndView modelAndView = new ModelAndView("index", "command", persona);
-		addPageData(persona);
-		modelAndView.addObject("persona", this.persona);
-		return modelAndView;
-	}
+	@PostMapping("insert")
+	public ModelAndView personInsert(Persona person) {
+		String type = this.person.getItem().getType();
+		if ("mochila".equals(type)) {
+			if (!this.person.getBag().isFull()) {
+				this.person.getBag().addItem(person.getItem());
 
-	private void addPageData(Persona personaForm) {
-
-		if (!StringUtils.isEmpty(personaForm.getNombre())) {
-			this.persona.setNombre(personaForm.getNombre());
+			}
+			System.out
+					.println("la mochila dispone de " + this.person.getBag().spaceAvalaible() + " kilos de almacenaje");
 		}
 
+		if ("custom".equals(type)) {
+			this.person.getPrimary().getItems().add(person.getItem());
+		}
+		if ("weapon".equals(type)) {
+			if (this.person.getItem().getName() != this.person.getPrimary().getName()) {
+				Arma wp = new Arma();
+				wp.setName(this.person.getPrimary().getName());
+				this.person.setPrimary(wp);
+			}
+		}
 
-	}
+		ModelAndView modelAndView = new ModelAndView("index", "command", person);
 
-	@PostMapping("itemInsert")
-	public ModelAndView itemInsert(Persona persona) {
-		addPageData(persona);
-		ModelAndView modelAndView = new ModelAndView("index", "command", persona);
-		modelAndView.addObject("persona", this.persona);
+		modelAndView.addObject("person", this.person);
 		return modelAndView;
 	}
+
+	@PostMapping("switchWeapon")
+	public ModelAndView switchWeapon(Persona person) {
+		Arma tmp;
+		tmp = this.person.getPrimary();
+		this.person.setPrimary(this.person.getSecondary());
+		this.person.setSecondary(tmp);
+		System.out.println("El arma activa es " + this.person.getPrimary().getName());
+		ModelAndView modelAndView = new ModelAndView("index", "command", person);
+		modelAndView.addObject("person", this.person);
+		return modelAndView;
+	}
+
+
+
 }

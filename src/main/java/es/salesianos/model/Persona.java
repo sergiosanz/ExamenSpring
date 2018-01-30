@@ -1,49 +1,40 @@
 package es.salesianos.model;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Persona {
-	
-	public String nombre;
-	public Mochila mochila;
-	public Arma armaPrimaria;
-	public Arma armaSecundaria;
 
-	public Persona() {
-		mochila.setItems(new ArrayList<Item>());
-		armaPrimaria.setItems(new ArrayList<Item>());
-		armaSecundaria.setItems(new ArrayList<Item>());
-	}
+	@Autowired
+	private Mochila mochila;
+	private Arma armaPrimaria;
+	private Arma armaSecundaria;
+	private Item item;
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Mochila getMochila() {
+	public Mochila getBag() {
 		return mochila;
 	}
-
-	public void setMochila(Mochila mochila) {
+	public void setBag(Mochila mochila) {
 		this.mochila = mochila;
 	}
-
-	public Arma getArmaPrimaria() {
+	public Arma getPrimary() {
 		return armaPrimaria;
 	}
-
-	public void setArmaPrimaria(Arma armaPrimaria) {
-		this.armaPrimaria = armaPrimaria;
+	public void setPrimary(Arma primary) {
+		this.armaPrimaria = primary;
 	}
-
-	public Arma getArmaSecundaria() {
+	public Arma getSecondary() {
 		return armaSecundaria;
 	}
-
-	public void setArmaSecundaria(Arma armaSecundaria) {
-		this.armaSecundaria = armaSecundaria;
+	public void setSecondary(Arma secondary) {
+		this.armaSecundaria = secondary;
 	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
 }

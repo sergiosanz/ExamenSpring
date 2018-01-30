@@ -1,28 +1,37 @@
 package es.salesianos.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import es.salesianos.model.Item;
 import es.salesianos.model.Persona;
+import es.salesianos.model.Arma;
 
 @Service
-@Profile("memory")
 public class PersonaService implements es.salesianos.service.Service {
 
-	private List<Persona> personas = new ArrayList<>();
-
 	@Override
-	public void insert(Persona persona) {
-		personas.add(persona);
+	public void addItem(Item item, Persona person) {
+		String type = person.getItem().getType();
+		if ("mochila".equals(type)) {
+			if (!person.getBag().isFull()) {
+				person.getBag().addItem(item);
+
+			}
+			System.out.println("la mochila dispone de " + person.getBag().spaceAvalaible() + " kilos de almacenaje");
+		}
+
+		if ("custom".equals(type)) {
+			person.getPrimary().getItems().add(item);
+		}
+		if ("weapon".equals(type)) {
+			if (person.getItem().getName() != person.getPrimary().getName()) {
+				Arma wp = new Arma();
+				wp.setName(person.getPrimary().getName());
+				person.setPrimary(wp);
+			}
+		}
 	}
 
-	@Override
-	public List<Persona> listAll() {
-		return personas;
-	}
 
 
 }
