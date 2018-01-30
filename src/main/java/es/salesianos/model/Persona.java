@@ -14,4 +14,36 @@ public class Persona {
 		armaPrimaria.setItems(new ArrayList<Item>());
 		armaSecundaria.setItems(new ArrayList<Item>());
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Mochila getMochila() {
+		return mochila;
+	}
+
+	public void setMochila(Mochila mochila) {
+		this.mochila = mochila;
+	}
+
+	public Arma getArmaPrimaria() {
+		return armaPrimaria;
+	}
+
+	public void setArmaPrimaria(Arma armaPrimaria) {
+		this.armaPrimaria = armaPrimaria;
+	}
+
+	public Arma getArmaSecundaria() {
+		return armaSecundaria;
+	}
+
+	public void setArmaSecundaria(Arma armaSecundaria) {
+		this.armaSecundaria = armaSecundaria;
+	}
 }
